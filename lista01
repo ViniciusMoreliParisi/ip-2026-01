@@ -1,0 +1,272 @@
+1 Aprovado ou Reprovado
+Entrada:
+u: 10
+v: 8
+w: 4
+Processamento:
+U + V + W / 3 = X	
+se X é >= 6, mensagem é APROVADO
+se X é < 6, mensagem é REPROVADO
+
+Saída:
+Média = 7,33
+APROVADO
+
+2 Arrecadações de jogos
+Entrada:
+3
+96 0,5 0,25 0,125 0,125
+144 0,6 0,15 0,15 0,1
+120 0,4 0,2 0,2 0,2
+Processamento:
+porcentagemPopular: total * popular
+porcentagemGeral: total * geral
+porcentagemArquibancada: total * arquibancada
+porcentagemCadeiras: total * cadeiras
+
+rendaTotal = porcentagemPopular  + porcentagemGeral * 5 + porcentagemArquibancada * 10 + porcentagemCadeiras * 20
+
+Saída: 
+A RENDA DO JOGO N.1 E = 528
+A RENDA DO JOGO N.2 E = 698,4
+A RENDA DO JOGO N.3 E = 888
+
+
+3. Composição inteira
+Entrada:
+n¹: 
+n²:
+n³:
+Processamento:
+Se “n¹” ou “n²” ou “n³” forem > 9, ou não forem naturais,
+Imprimir “DÍGITO INVÁLIDO”
+
+Se n¹ e n³ forem diferentes de zero,
+N: “n¹” + “n²” + “n³”
+Se apenas n¹ for zero,
+N: “n²” + “n³”
+Se n¹ e n² forem zero,
+N: “n³”
+N²: N * N
+Imprimir “N” + “, N²”
+
+4. Consumo de energia
+Entrada: 
+salárioMínimo:
+consumo(kW):
+
+Processamento:
+custoDokW: 7 * 1/10³ * salárioMínimo
+gastoTotal: consumo(kW) * 7 * 1/10³ * Salário mínimo
+gastoComDesconto: gastoTotal * 0,9
+
+Imprimir 
+“Custo por kW: R$” + custoDokW
+“Custo do consumo: R$” + gastoTotal
+“Custo com desconto: R$” + gastoComDesconto
+
+
+
+5. Conta de água
+Entrada:
+conta:
+consumo (m³):
+tipo: 
+Processamento:
+Se tipo for igual à R, valorDaConta = 5 + 0,05 * consumo
+Se tipo for igual à C e consumo <= 80, valorDaConta = 500  
+Se tipo for igual à C e consumo > 80, valorDaConta = 500 + (consumo – 80) * 0,25
+Se tipo for igual à I e consumo <= 100, valorDaConta = 800
+Se tipo for igual à I e consumo > 100, valorDaConta = 800 + (consumo - 100) * 0,04
+
+Imprimir:
+“CONTA = ” + conta
+“VALOR DA CONTA = ” + valorDaConta
+
+6. Conversão de temperatura
+Entrada:
+3
+F¹:
+F²:
+F³:
+Processamento:
+Cn: (Fn – 32) * 5/9
+
+Imprimir:
+“Fn“ + “FAHRENHEIT EQUIVALE A + “Cn” + “CELSIUS”
+
+7. Conversões para o Sistema Métrico
+Entrada:
+Fahrenheit:
+Polegadas:
+Processamento:
+Celsius = (Fahrenheit – 32) * 5/9
+Milímetros = Polegadas * 25.4
+Imprimir:
+“O VALOR EM CELSIUS = ” + Celsius
+“A QUANTIDADE DE CHUVA E = ” + Milímetros
+
+8. Custo da lata de cerveja
+Entrada:
+raio(m):
+altura(m):
+Processamento:
+
+
+
+areaLata =  raio * 6,28318 * altura + 6,28318 raio * raio
+
+Imprimir:
+“O VALOR DO CUSTO E = ” + areaLata
+
+9.Cálculo do Delta na Equação de Báskara
+Entrada:
+a:
+b:
+c:
+Processamento:
+delta: b*b - 4*a*c	
+
+Imprimir:
+“O VALOR DE DELTA  E = ” + delta
+
+10. Cálculo do determinante de uma matriz quadrada de duas dimensões
+Entrada:
+a:
+b:
+c:
+d:
+
+Processamento:
+det = a*d – b*c
+
+Imprimir:
+“O VALOR DO DETERMINANTE E = ” + det
+
+11. Divisível por 3 e 5
+Entrada:
+n
+Saída:
+Se, n ao ser dividido por 5, não tem sobra, e, ao ser dividido por 3 não tem sobra,
+Imprimir:
+“O NUMERO E DIVISIVEL”
+
+12. Locadora de charretes
+Entrada:
+H:
+Processamento:
+Se H, ao ser dividido por três, tem resto igual a zero,
+valor = H *10/3
+Se não, 
+valor = divisão de H por 3, tendo o resultado da divisão multiplicado por 10, e o resto da divisão é multiplicado por 5
+
+Imprimir:
+“O VALOR A PAGAR E” +  valor
+
+13. Conversão de nota em conceito
+Entrada:
+nota:
+Processamento:
+Se 9 <= nota <= 10
+Imprimir: 
+“NOTA = ” + nota + “CONCEITO = “ + A
+
+Se 7,5 <= nota <=9 
+Imprimir: 
+“NOTA = ” + nota + “CONCEITO = “ + B
+
+Se 6 <= nota <= 7,5 
+Imprimir: 
+“NOTA = ” + nota + “CONCEITO = “ + C
+
+Se 0 <= nota <=6 
+Imprimir: 
+“NOTA = ” + nota + “CONCEITO = “ + D	
+
+14. Volume da pirâmide de Base Hexagonal
+Entrada:
+Altura:
+Aresta:
+Processamento:
+áreaDaBase: 3 * aresta * aresta * 1,73 * 1/2
+volume: 1/3 * áreaDaBase * altura
+
+Imprimir:
+“O VOLUME DA PIRÂMIDE E = ” + volume  + “METROS CUBICOS”
+
+15. Quadrado de pares
+Entrada:
+N:
+Processamento:
+Se, 5 > N > 2000, 
+Imprimir:
+“Digite um número entre 5 e 2000”
+
+Se não,
+a = 0
+
+
+De forma cíclica e continuada,
+soma-se 1 à a, então divide-se a por dois, e todas as vezes em que o resto da divisão for 0, até que a = N, imprimir “a * a = ”  + (a * a)
+
+16. Reajuste salarial
+Entrada:
+Salário:
+Processamento:
+Se salário <=300, 
+Imprimir: 
+“SALARIO COM REAJUSTE = ” + (salário * 1,5)
+
+Se não,
+“SALARIO COM REAJUSTE = ” + (salário * 1,3)
+
+17. Séries de pares
+Entrada:
+a:
+b:
+Processamento:
+Se a/2 tem resto diferente de 0, 
+Imprimir: 
+“O PRIMEIRO NÚMERO NÃO É PAR”
+Se não,
+N = a
+De forma cíclica e continuada, somar 2 à (N – 2), por b vezes, e imprimir o resultado.
+
+18. Soma de progressão aritmética
+Entrada:
+a¹:
+r:
+n:
+
+Processamento:
+De forma cíclica e continuada, somar r à a¹, por n vezes. Por fim, soma-se a¹ a todos resultados de soma an, resultando na variável t.
+Imprimir:
+T
+
+19. Somatório simples
+Entrada:
+n:
+Processamento:
+Se n = 0, ou não for natural,
+Imprimir:
+“Número inválido!”
+
+Se não,
+a = 0
+S = 1 / a
+De forma cíclica e continuada, soma-se 1 à a, por n vezes.
+Soma-se todos Sn, resultando na variável R.
+
+Imprimir:
+R
+
+20. Tempo em segundos
+Entrada:
+h:	
+m:
+s:
+Processamento:
+S = 3600 * h + 60 * m + s
+
+Imprimir:
+“O TEMPO EM SEGUNDOS E = ” + S
