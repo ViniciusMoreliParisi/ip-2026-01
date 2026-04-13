@@ -8,9 +8,9 @@ func main() {
 
 	var cpf [11]int
 
-	fmt.Println("Vamos calcular os dígitos verificadores do seu CPF!")
-	fmt.Print("Digite os primeiros 9 dígitos do seu CPF (separados por espaços): ")
-	for i := 0; i < 9; i++ {
+	fmt.Println("Vamos validar o seu CPF!")
+	fmt.Print("Digite o seu CPF (separados por espaços): ")
+	for i := 0; i < 11; i++ {
 		fmt.Scan(&cpf[i])
 	}
 
@@ -31,38 +31,52 @@ func main() {
 		dig1 = 11 - (soma % 11)
 	}
 
-	cpf[9] = dig1
-	soma = 0
-	j = 9
+	if cpf[9] != dig1 {
+		fmt.Println("O primeiro dígito verificador está incorreto.")
+		fmt.Println("Portanto, seu CPF é inválido.")
 
-	for i := 2; i <= 11; i++ {
-		soma += i * cpf[j]
-		j--
-	}
+	} else {
+		fmt.Println("O primeiro dígito verificador está correto.")
 
-	var dig2 int
+		soma = 0
+		j = 9
 
-	if soma%11 < 2 {
-		dig2 = 0
-	} else if soma%11 >= 2 {
-		dig2 = 11 - (soma % 11)
-	}
-
-	cpf[10] = dig2
-
-	for i := 0; i < 11; i++ {
-
-		if i == 0 {
-			fmt.Print("O CPF completo é: ")
+		for i := 2; i <= 11; i++ {
+			soma += i * cpf[j]
+			j--
 		}
 
-		if i == 2 || i == 5 {
-			fmt.Print(cpf[i], ".")
-		} else if i == 8 {
-			fmt.Print(cpf[i], "-")
+		var dig2 int
+
+		if soma%11 < 2 {
+			dig2 = 0
+		} else if soma%11 >= 2 {
+			dig2 = 11 - (soma % 11)
+		}
+        
+		
+		if cpf[10] != dig2{
+			fmt.Println("O segundo dígito verificador está incorreto.")
+			fmt.Println("Portanto, seu CPF é inválido.")
 		} else {
-			fmt.Print(cpf[i])
+			fmt.Println("O segundo dígito verificador está correto.")
+			fmt.Println("Parabéns! Seu CPF é válido.")
 		}
 
+		for i := 0; i < 11; i++ {
+
+			if i == 0 {
+				fmt.Print("CPF válido: ")
+			}
+
+			if i == 2 || i == 5 {
+				fmt.Print(cpf[i], ".")
+			} else if i == 8 {
+				fmt.Print(cpf[i], "-")
+			} else {
+				fmt.Print(cpf[i])
+			}
+
+		}
 	}
 }
