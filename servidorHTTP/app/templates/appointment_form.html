@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar consulta</title>
+    <link rel="stylesheet" href="/styles/health.css">
+</head>
+<body>
+    <div class="page">
+        <header class="page-header">
+            <a href="/" class="back-link">&larr; Início</a>
+            <h1>Agendar consulta</h1>
+            <p>Selecione o paciente, data, horário e forma de pagamento.</p>
+        </header>
+
+        {{if .Success}}
+        <p class="alert alert-success">Consulta agendada com sucesso.</p>
+        {{end}}
+
+        {{if eq .Error "patient"}}
+        <p class="alert alert-error">Selecione um paciente válido.</p>
+        {{else if eq .Error "payment"}}
+        <p class="alert alert-error">Selecione uma forma de pagamento válida.</p>
+        {{else if eq .Error "datetime"}}
+        <p class="alert alert-error">Data e horário devem ser futuros.</p>
+        {{else if eq .Error "conflict"}}
+        <p class="alert alert-error">Este horário já está ocupado por outra consulta.</p>
+        {{end}}
+
+        {{if not .Patients}}
+        <p class="alert alert-warning">
+            Nenhum paciente cadastrado.
+            <a href="/patients/new">Cadastre um paciente</a> antes de agendar.
+        </p>
+        {{else}}
+        <form class="card-form" method="POST" action="/appointments">
+            <div class="field">
+                <label for="patient_id">Paciente</label>
+                <select id="patient_id" name="patient_id" required>
+                    <option value="">Selecione...</option>
+                    {{range .Patients}}
+                    <option value="{{.ID}}">{{.Name}} — CPF {{formatCPF .CPF}} ({{.BloodType}})</option>
+                    {{end}}
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="appointment_date">Data</label>
+                <input
+                    id="appointment_date"
+                    name="appointment_date"
+                    type="date"
+                    required
+                    min="{{.MinDate}}">
+            </div>
+
+            <div class="field">
+                <label for="appointment_time">Horário</label>
+                <input id="appointment_time" name="appointment_time" type="time" required>
+            </div>
+
+            <div class="field">
+                <label for="payment_method">Pagamento</label>
+                <select id="payment_method" name="payment_method" required>
+                    <option value="">Selecione...</option>
+                    <option value="cash">Dinheiro</option>
+                    <option value="card">Cartão</option>
+                    <option value="pix">PIX</option>
+                    <option value="insurance">Convênio</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary">Agendar</button>
+        </form>
+        {{end}}
+    </div>
+</body>
+</html>

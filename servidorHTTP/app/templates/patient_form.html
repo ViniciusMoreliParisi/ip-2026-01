@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar paciente</title>
+    <link rel="stylesheet" href="/styles/health.css">
+</head>
+<body>
+    <div class="page page-form-wide">
+        <header class="page-header">
+            <a href="/" class="back-link">&larr; Início</a>
+            <h1>Cadastrar paciente</h1>
+            <p>Preencha todos os campos abaixo. Campos com <span class="required-mark">*</span> são obrigatórios.</p>
+        </header>
+
+        {{if .Success}}
+        <p class="alert alert-success">Paciente cadastrado com sucesso.</p>
+        {{end}}
+
+        {{if eq .Error "required"}}
+        <p class="alert alert-error">Preencha nome, CPF, tipo sanguíneo e endereço.</p>
+        {{else if eq .Error "cpf"}}
+        <p class="alert alert-error">CPF inválido. Verifique os dígitos informados.</p>
+        {{else if eq .Error "cpf_duplicate"}}
+        <p class="alert alert-error">Este CPF já está cadastrado no sistema.</p>
+        {{else if eq .Error "blood_type"}}
+        <p class="alert alert-error">Selecione um tipo sanguíneo válido.</p>
+        {{else if eq .Error "phone"}}
+        <p class="alert alert-error">Telefone inválido. Use 10 ou 11 dígitos (ex: 11987654321).</p>
+        {{else if eq .Error "db"}}
+        <p class="alert alert-error">Erro no banco de dados. Reinicie o servidor — as tabelas são criadas automaticamente na inicialização.</p>
+        {{end}}
+
+        <form class="card-form patient-form" method="POST" action="/patients">
+            <fieldset class="form-section">
+                <legend>Dados pessoais</legend>
+
+                <div class="form-grid">
+                    <div class="field field-span-2">
+                        <label for="name">Nome completo <span class="required-mark">*</span></label>
+                        <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            required
+                            minlength="2"
+                            maxlength="150"
+                            placeholder="Ex: Maria da Silva Santos"
+                            autocomplete="name">
+                        <small class="field-hint">Nome como consta no documento.</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="cpf">CPF <span class="required-mark">*</span></label>
+                        <input
+                            id="cpf"
+                            name="cpf"
+                            type="text"
+                            required
+                            inputmode="numeric"
+                            maxlength="14"
+                            pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2}|\d{11})"
+                            title="Informe um CPF válido com 11 dígitos"
+                            placeholder="000.000.000-00"
+                            autocomplete="off">
+                        <small class="field-hint">Apenas números ou formato 000.000.000-00.</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="telephone">Telefone <span class="required-mark">*</span></label>
+                        <input
+                            id="telephone"
+                            name="telephone"
+                            type="tel"
+                            required
+                            pattern="(\+?\d{1,3})?[\s\-]?\(?\d{2}\)?[\s\-]?\d{4,5}[\s\-]?\d{4}"
+                            title="Telefone com DDD — 10 ou 11 dígitos"
+                            placeholder="(11) 98765-4321"
+                            autocomplete="tel">
+                    </div>
+
+                    <div class="field field-span-2">
+                        <label for="address">Endereço <span class="required-mark">*</span></label>
+                        <textarea
+                            id="address"
+                            name="address"
+                            required
+                            minlength="5"
+                            maxlength="500"
+                            rows="3"
+                            placeholder="Rua, número, complemento, bairro, cidade — UF"
+                            autocomplete="street-address"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Informações clínicas</legend>
+                <p class="section-desc">Esses dados auxiliam o médico no atendimento. Se não houver informação, deixe em branco.</p>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="blood_type">Tipo sanguíneo <span class="required-mark">*</span></label>
+                        <select id="blood_type" name="blood_type" required>
+                            <option value="">Selecione o tipo...</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+
+                    <div class="field field-span-2">
+                        <label for="allergies">Alergias</label>
+                        <textarea
+                            id="allergies"
+                            name="allergies"
+                            maxlength="1000"
+                            rows="3"
+                            placeholder="Ex: penicilina, dipirona, amendoim, látex..."></textarea>
+                        <small class="field-hint">Substâncias, alimentos ou medicamentos que causam reação.</small>
+                    </div>
+
+                    <div class="field field-span-2">
+                        <label for="diseases">Doenças / condições de saúde</label>
+                        <textarea
+                            id="diseases"
+                            name="diseases"
+                            maxlength="1000"
+                            rows="3"
+                            placeholder="Ex: diabetes tipo 2, hipertensão, asma..."></textarea>
+                        <small class="field-hint">Doenças crônicas, diagnósticos ou condições relevantes.</small>
+                    </div>
+
+                    <div class="field field-span-2">
+                        <label for="medicine_usage">Uso de medicamentos</label>
+                        <textarea
+                            id="medicine_usage"
+                            name="medicine_usage"
+                            maxlength="1000"
+                            rows="3"
+                            placeholder="Ex: metformina 850mg — 2x ao dia; losartana 50mg — 1x ao dia"></textarea>
+                        <small class="field-hint">Nome, dosagem e frequência dos medicamentos em uso contínuo.</small>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn-primary">Cadastrar paciente</button>
+        </form>
+    </div>
+</body>
+</html>

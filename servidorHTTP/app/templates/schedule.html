@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda do médico</title>
+    <link rel="stylesheet" href="/styles/health.css">
+</head>
+<body>
+    <div class="page page-wide">
+        <header class="page-header">
+            <a href="/" class="back-link">&larr; Início</a>
+            <h1>Agenda do médico</h1>
+            <p>{{.TotalUpcoming}} consulta(s) futura(s) neste mês. Dias destacados possuem agendamentos.</p>
+        </header>
+
+        <div class="schedule-layout">
+            <section class="calendar-panel card-form">
+                <div class="calendar-header">
+                    <a class="calendar-nav" href="{{.Calendar.PrevURL}}" aria-label="Mês anterior">&larr;</a>
+                    <h2 class="calendar-title">{{.Calendar.Title}}</h2>
+                    <a class="calendar-nav" href="{{.Calendar.NextURL}}" aria-label="Próximo mês">&rarr;</a>
+                </div>
+
+                <div class="calendar-legend">
+                    <span><i class="dot dot-busy"></i> Com consultas</span>
+                    <span><i class="dot dot-today"></i> Hoje</span>
+                    <span><i class="dot dot-selected"></i> Dia selecionado</span>
+                </div>
+
+                <div class="calendar-grid calendar-weekdays">
+                    {{range .Calendar.Weekdays}}
+                    <span class="calendar-weekday">{{.}}</span>
+                    {{end}}
+                </div>
+
+                <div class="calendar-grid calendar-days">
+                    {{range .Calendar.Days}}
+                    {{if .InMonth}}
+                    <a
+                        href="{{.URL}}"
+                        class="calendar-day{{if .IsSelected}} is-selected{{end}}{{if .IsToday}} is-today{{end}}{{if .HasAppointment}} has-appointment{{end}}"
+                        title="{{if .HasAppointment}}{{.Count}} consulta(s){{else}}Sem consultas{{end}}">
+                        <span class="day-number">{{.Day}}</span>
+                        {{if .HasAppointment}}
+                        <span class="appointment-dot" aria-hidden="true"></span>
+                        <span class="appointment-count">{{.Count}}</span>
+                        {{end}}
+                    </a>
+                    {{else}}
+                    <span class="calendar-day is-outside">
+                        <span class="day-number">{{.Day}}</span>
+                    </span>
+                    {{end}}
+                    {{end}}
+                </div>
+            </section>
+
+            <section class="day-panel">
+                <header class="day-panel-header">
+                    <h2>Consultas do dia</h2>
+                    <p class="day-panel-date">{{.SelectedDateLabel}}</p>
+                </header>
+
+                {{if .DayAppointments}}
+                <div class="schedule-list">
+                    {{range .DayAppointments}}
+                    <article class="schedule-card">
+                        <div class="schedule-time-block">
+                            <span class="time">{{.AppointmentTime}}</span>
+                        </div>
+                        <div class="schedule-body">
+                            <h3>{{.PatientName}}</h3>
+                            <p class="meta">CPF {{.PatientCPF}} · {{.PatientTelephone}}</p>
+                            <div class="badge-row">
+                                <span class="badge badge-blood">{{.PatientBloodType}}</span>
+                                <span class="badge">{{.PaymentLabel}}</span>
+                            </div>
+
+                            {{if or .PatientAllergies .PatientDiseases .PatientMedicines}}
+                            <ul class="clinical-notes">
+                                {{if .PatientAllergies}}
+                                <li><strong>Alergias:</strong> {{.PatientAllergies}}</li>
+                                {{end}}
+                                {{if .PatientDiseases}}
+                                <li><strong>Doenças:</strong> {{.PatientDiseases}}</li>
+                                {{end}}
+                                {{if .PatientMedicines}}
+                                <li><strong>Medicamentos:</strong> {{.PatientMedicines}}</li>
+                                {{end}}
+                            </ul>
+                            {{end}}
+                        </div>
+                    </article>
+                    {{end}}
+                </div>
+                {{else}}
+                <p class="empty-state">Nenhuma consulta futura neste dia. Selecione outro dia no calendário.</p>
+                {{end}}
+            </section>
+        </div>
+    </div>
+</body>
+</html>
